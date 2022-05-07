@@ -1,3 +1,1 @@
-# hardware
-
-Repository to storage hardware files and software
+# Development repository the mini-chef hardware and firmware
