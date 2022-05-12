@@ -3,4 +3,6 @@
 
 #include <Arduino.h>
 
+int defaultPin = 32;
+
 #endif
