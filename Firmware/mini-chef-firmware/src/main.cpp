@@ -18,6 +18,7 @@ void setup() {
 void loop() {
 
   String msg = ""; 
+  String resposne = "";
   
   
   if(btController.haveComands()){
@@ -43,14 +44,19 @@ void loop() {
       while ( 1 )
       {
         count++;
-        btController.writeBT("    - ");
+        delay(1000);
+        resposne.concat("    -");
+        resposne.concat(count);
+        resposne.concat(" DOSES SERVIDAS");
+        btController.writeBT(resposne);
         feederServo.openFeederFull();
         feederServo.closeFeeder();
+        resposne = "";
       }
-      
       break;
     case 52:
       btController.writeBT("TEMPERATURA: ");
+
       break;
     default:
       btController.writeBT("405");
