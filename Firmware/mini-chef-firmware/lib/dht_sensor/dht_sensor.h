@@ -25,7 +25,6 @@
             *value = humidity;
         }
         void getTemperature(float* value){
-            delay(2500);
             setTemperature(&temperature);
             *value = temperature;
             Serial.println(temperature);

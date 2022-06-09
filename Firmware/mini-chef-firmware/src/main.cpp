@@ -8,6 +8,7 @@
 bluetoothController btController;
 servoContrller feederServo;
 dhtSensor feederDHT;
+readAnalogicPin feederWeight;
 
 
 void setup() {
@@ -16,9 +17,13 @@ void setup() {
 }
 
 void loop() {
-
   String msg = ""; 
   String resposne = "";
+  float temp = -1;
+  uint16_t read = -1;
+  uint8_t count = 0;
+  int isPlateFull=1;
+
   
   
   if(btController.haveComands()){
@@ -40,23 +45,44 @@ void loop() {
 
     case 51:
       btController.writeBT("ALIMENTAR: DOSE AUTOMATICA CHEIA");
-      uint8_t count = 0;
-      while ( 1 )
+      while ( isPlateFull )
       {
         count++;
+        resposne = "";
         delay(1000);
         resposne.concat("    -");
         resposne.concat(count);
         resposne.concat(" DOSES SERVIDAS");
         btController.writeBT(resposne);
+        feederWeight.readPin(&read);
+        isPlateFull = feederWeight.isFull(&read);
+        Serial.println(read);
         feederServo.openFeederFull();
         feederServo.closeFeeder();
-        resposne = "";
+        
       }
       break;
-    case 52:
-      btController.writeBT("TEMPERATURA: ");
 
+    case 52:
+      resposne = "";
+      feederDHT.getTemperature(&temp);
+      resposne.concat("TEMPERATURA: ");
+      resposne.concat(temp);
+      btController.writeBT(resposne);
+      break;
+    case 53:
+      resposne = "";
+      feederDHT.getHumidity(&temp);
+      resposne.concat("Humidade: ");
+      resposne.concat(temp);
+      btController.writeBT(resposne);
+      break;
+    case 54:
+      resposne = "";
+      feederWeight.readPin(&read);
+      resposne.concat("Peso: ");
+      resposne.concat(read);
+      btController.writeBT(resposne);
       break;
     default:
       btController.writeBT("405");
