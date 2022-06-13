@@ -16,19 +16,18 @@ void setup() {
   btController.begin();
 }
 
-void loop() {
-  String msg = ""; 
-  String resposne = "";
-  float temp = -1;
-  uint16_t read = -1;
-  uint8_t count = 0;
-  int isPlateFull=1;
-
-  
+void loop() { 
   
   if(btController.haveComands()){
-    btController.readBT(&msg);
+    // Variables
+    String msg          = ""; 
+    String resposne     = "";
+    float temp          = -1;
+    uint16_t readWeight = -1;
+    uint8_t count       =  0; // Count number of 
+    int isPlateFull     =  1; // Boolean variable to verify state of plate
 
+    btController.readBT(&msg);
     switch (  msg.toInt()  )
     {
     case 49:
@@ -54,9 +53,9 @@ void loop() {
         resposne.concat(count);
         resposne.concat(" DOSES SERVIDAS");
         btController.writeBT(resposne);
-        feederWeight.readPin(&read);
-        isPlateFull = feederWeight.isFull(&read);
-        Serial.println(read);
+        feederWeight.readPin(&readWeight);
+        isPlateFull = feederWeight.isFull(&readWeight);
+        Serial.println(readWeight);
         feederServo.openFeederFull();
         feederServo.closeFeeder();
         
@@ -79,9 +78,9 @@ void loop() {
       break;
     case 54:
       resposne = "";
-      feederWeight.readPin(&read);
+      feederWeight.readPin(&readWeight);
       resposne.concat("Peso: ");
-      resposne.concat(read);
+      resposne.concat(readWeight);
       btController.writeBT(resposne);
       break;
     default:
