@@ -14,30 +14,15 @@
     
     
     class dhtSensor {
-    public:
-        dhtSensor(uint8_t pinValue = DHTPIN)
-        {
-            pin = pinValue;
-        }
-        // Getter
-        void getHumidity(float* value){
-            setHumidity();
-            *value = humidity;
-        }
-        void getTemperature(float* value){
-            setTemperature(&temperature);
-            *value = temperature;
-            Serial.println(temperature);
-        }
-    private:
-        void setTemperature(float* value){
-            temperature = dhtInstanse.readTemperature();
-
-        }
-        void setHumidity(){
-            humidity = dhtInstanse.readHumidity();
-        }
-};
+        public:
+            dhtSensor(uint8_t pinValue = DHTPIN);
+            // Getter
+            void getHumidity(float* value);
+            void getTemperature(float* value);
+        private:
+            void setTemperature();
+            void setHumidity();
+    };
 
 
 #endif
