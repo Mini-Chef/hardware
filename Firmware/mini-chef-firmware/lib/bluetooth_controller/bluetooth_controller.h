@@ -11,23 +11,14 @@
 
 #define BT_NAME "Mini-Chef"
 
-
     class bluetoothController {
         private:
             BluetoothSerial miniChefSerialBT;
         public:
-            boolean haveComands(){
-                return miniChefSerialBT.available();
-            }
-            void readBT(String * msg){
-                *msg = miniChefSerialBT.read();
-            }
-            void writeBT(String msg){
-                miniChefSerialBT.println(msg);
-            }
-            void begin(){
-                miniChefSerialBT.begin(BT_NAME);
-            }
+            boolean haveComands();
+            void readBT(String * msg);
+            void writeBT(String msg);
+            void begin();
     };
 
 #endif
