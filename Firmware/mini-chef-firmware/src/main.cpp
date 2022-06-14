@@ -6,7 +6,7 @@
 #include <string>
 
 bluetoothController btController;
-servoContrller feederServo;
+servoController feederServo;
 dhtSensor feederDHT;
 readAnalogicPin feederWeight;
 
