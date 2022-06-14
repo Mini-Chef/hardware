@@ -3,43 +3,20 @@
 
 #ifndef SERVO_CONTROLLER_H
 #define SERVO_CONTROLLER_H
+#define servoDefaultPin 22
 
-    Servo servo;  
-    uint8_t servoDefaultPin = 22;    
+    class servoController {
+            private:
+            Servo servo = Servo();
 
-
-    class servoContrller {
-        private:
-            // Setters
-        void setServoPin(u_int8_t pin){
-            servo.attach( pin );
-        }
-        void openLeft(int milliseconds = 350){
-            servo.write(170);
-            delay(milliseconds);
-        }
-        void openRight(int milliseconds = 350){
-            servo.write(0);
-            delay(milliseconds);
-        }
-        public:
-        servoContrller(uint8_t pinValue = servoDefaultPin){
-            setServoPin(pinValue);
-            closeFeeder();
-        }
-        void openFeederFull(){
-            openLeft();
-            delay(400);
-            openRight();
-            delay(400);
-            
-        }
-        void openFeederParse(){
-           openRight();
-        }
-        void closeFeeder(){
-            servo.write(82);
-        }
+            void setServoPin(uint8_t pin);
+            void openLeft(int milliseconds = 350);
+            void openRight(int milliseconds = 350);
+            public:
+            servoController(uint8_t pinValue = servoDefaultPin);
+            void openFeederFull();
+            void openFeederParse();
+            void closeFeeder();
     };
 
 #endif
